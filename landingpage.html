@@ -1,627 +1,172 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elio - Notas Médicas Inteligentes</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            color: #1d1d1f;
-            line-height: 1.47059;
-            font-weight: 400;
-            letter-spacing: -0.022em;
-            background: #fbfbfd;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 44px;
-            background: rgba(251, 251, 253, 0.8);
-            backdrop-filter: saturate(180%) blur(20px);
-            z-index: 9999;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-content {
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 0 22px;
-            height: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-size: 21px;
-            font-weight: 600;
-            color: #1d1d1f;
-            text-decoration: none;
-            letter-spacing: -0.01em;
-        }
-
-        .nav-partner-logo {
-            height: 32px;
-            width: auto;
-        }
-
-        .nav-logos {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        /* Partner badge in hero */
-        .partner-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 50px;
-            margin-top: 30px;
-            font-size: 15px;
-            color: #6e6e73;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
-        }
-
-        .partner-badge:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        .partner-badge:active {
-            transform: translateY(0px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .partner-badge img {
-            height: 32px;
-            width: auto;
-        }
-
-        .partner-badge strong {
-            color: #17a2b8;
-            font-weight: 600;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            font-size: 12px;
-            color: #1d1d1f;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-            font-weight: 400;
-        }
-
-        .nav-links a:hover {
-            opacity: 1;
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 44px;
-            padding: 60px 0 80px;
-            background: linear-gradient(180deg, #e0f7f9 0%, #fbfbfd 100%);
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 56px;
-            line-height: 1.07143;
-            font-weight: 600;
-            letter-spacing: -0.005em;
-            color: #1d1d1f;
-            margin-bottom: 6px;
-        }
-
-        .hero .subtitle {
-            font-size: 28px;
-            line-height: 1.14286;
-            font-weight: 400;
-            letter-spacing: 0.007em;
-            color: #17a2b8;
-            margin-bottom: 20px;
-        }
-
-        .hero .description {
-            font-size: 21px;
-            line-height: 1.381;
-            font-weight: 400;
-            letter-spacing: 0.011em;
-            color: #6e6e73;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            padding: 0 22px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            padding: 0 22px;
-        }
-
-        .cta-primary {
-            background: #17a2b8;
-            color: #fff;
-            font-size: 17px;
-            padding: 12px 24px;
-            border-radius: 980px;
-            text-decoration: none;
-            font-weight: 400;
-            transition: all 0.3s;
-            border: none;
-        }
-
-        .cta-primary:hover {
-            background: #138496;
-        }
-
-        .cta-secondary {
-            color: #17a2b8;
-            font-size: 17px;
-            padding: 12px 24px;
-            text-decoration: none;
-            font-weight: 400;
-            border: 2px solid #17a2b8;
-            border-radius: 980px;
-            transition: all 0.3s;
-        }
-
-        .cta-secondary:hover {
-            background: #17a2b8;
-            color: #fff;
-        }
-
-        /* Feature Sections */
-        .feature-section {
-            padding: 80px 0;
-            max-width: 980px;
-            margin: 0 auto;
-            padding-left: 22px;
-            padding-right: 22px;
-        }
-
-        .feature-section:nth-child(even) {
-            background: #f5f5f7;
-            max-width: 100%;
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        .feature-section:nth-child(even) .feature-content {
-            max-width: 980px;
-            margin: 0 auto;
-            padding-left: 22px;
-            padding-right: 22px;
-        }
-
-        .feature-section h2 {
-            font-size: 48px;
-            line-height: 1.08349;
-            font-weight: 600;
-            letter-spacing: -0.003em;
-            color: #1d1d1f;
-            margin-bottom: 12px;
-        }
-
-        .feature-section .feature-subtitle {
-            font-size: 24px;
-            line-height: 1.16667;
-            font-weight: 400;
-            letter-spacing: 0.009em;
-            color: #17a2b8;
-            margin-bottom: 30px;
-        }
-
-        .feature-section p {
-            font-size: 21px;
-            line-height: 1.381;
-            font-weight: 400;
-            letter-spacing: 0.011em;
-            color: #6e6e73;
-            margin-bottom: 25px;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .feature-item h3 {
-            font-size: 24px;
-            line-height: 1.16667;
-            font-weight: 600;
-            letter-spacing: 0.009em;
-            color: #1d1d1f;
-            margin-bottom: 8px;
-        }
-
-        .feature-item p {
-            font-size: 17px;
-            line-height: 1.47059;
-            font-weight: 400;
-            letter-spacing: -0.022em;
-            color: #6e6e73;
-        }
-
-        /* Stats Section */
-        .stats-section {
-            padding: 100px 0;
-            text-align: center;
-            background: linear-gradient(180deg, #fbfbfd 0%, #e0f7f9 100%);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 60px;
-            max-width: 980px;
-            margin: 60px auto 0;
-            padding: 0 22px;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 64px;
-            line-height: 1;
-            font-weight: 600;
-            letter-spacing: -0.009em;
-            color: #17a2b8;
-            margin-bottom: 12px;
-        }
-
-        .stat-label {
-            font-size: 21px;
-            line-height: 1.381;
-            font-weight: 400;
-            letter-spacing: 0.011em;
-            color: #6e6e73;
-        }
-
-        /* Process Section */
-        .process-section {
-            padding: 80px 22px;
-            max-width: 980px;
-            margin: 0 auto;
-        }
-
-        .process-section h2 {
-            font-size: 48px;
-            line-height: 1.08349;
-            font-weight: 600;
-            letter-spacing: -0.003em;
-            color: #1d1d1f;
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 40px;
-        }
-
-        .process-step {
-            text-align: center;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #17a2b8;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: 600;
-            margin: 0 auto 20px;
-        }
-
-        .process-step h3 {
-            font-size: 21px;
-            line-height: 1.381;
-            font-weight: 600;
-            letter-spacing: 0.011em;
-            color: #1d1d1f;
-            margin-bottom: 8px;
-        }
-
-        .process-step p {
-            font-size: 17px;
-            line-height: 1.47059;
-            font-weight: 400;
-            letter-spacing: -0.022em;
-            color: #6e6e73;
-        }
-
-        /* Final CTA */
-        .final-cta {
-            padding: 100px 22px;
-            text-align: center;
-            background: #1d1d1f;
-            color: #f5f5f7;
-        }
-
-        .final-cta h2 {
-            font-size: 48px;
-            line-height: 1.08349;
-            font-weight: 600;
-            letter-spacing: -0.003em;
-            margin-bottom: 20px;
-        }
-
-        .final-cta p {
-            font-size: 21px;
-            line-height: 1.381;
-            font-weight: 400;
-            letter-spacing: 0.011em;
-            color: #a1a1a6;
-            margin-bottom: 40px;
-        }
-
-        .final-cta .cta-primary {
-            background: #17a2b8;
-            color: #fff;
-        }
-
-        .final-cta .cta-primary:hover {
-            background: #1ab8cf;
-        }
-
-        /* Footer */
-        footer {
-            background: #f5f5f7;
-            padding: 40px 22px;
-            text-align: center;
-            border-top: 1px solid #d2d2d7;
-        }
-
-        .footer-content {
-            max-width: 980px;
-            margin: 0 auto;
-        }
-
-        .footer-logo {
-            margin-bottom: 20px;
-        }
-
-        .footer-logo img {
-            height: 50px;
-            width: auto;
-            opacity: 0.85;
-            transition: opacity 0.3s ease;
-        }
-
-        .footer-logo img:hover {
-            opacity: 1;
-        }
-
-        footer p {
-            font-size: 12px;
-            line-height: 1.33337;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            color: #6e6e73;
-            margin-bottom: 8px;
-        }
-
-        /* Responsive */
-        @media (max-width: 734px) {
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            .hero .subtitle {
-                font-size: 21px;
-            }
-
-            .hero .description {
-                font-size: 17px;
-            }
-
-            .feature-section h2 {
-                font-size: 32px;
-            }
-
-            .feature-section .feature-subtitle {
-                font-size: 19px;
-            }
-
-            .stat-number {
-                font-size: 48px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .nav-logos {
-                gap: 10px;
-            }
-
-            .nav-partner-logo {
-                height: 26px;
-            }
-
-            .partner-badge {
-                font-size: 13px;
-                padding: 10px 18px;
-                gap: 10px;
-            }
-
-            .partner-badge img {
-                height: 26px;
-            }
-
-            .footer-logo img {
-                height: 40px;
-            }
-
-            .process-steps {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ELIO — Intelligent Medical Notes</title>
+  <link rel="icon" type="image/jpeg" href="Public/Elio-image-Photoroom.jpeg">
+  <meta name="description" content="ELIO generates accurate medical notes in seconds — portfolio project developed at Holberton School.">
+  <link rel="stylesheet" href="Public/styles.css">
 </head>
 <body>
-    <nav>
-        <div class="nav-content">
-            <a href="#" class="nav-logo"></a>
-            <div class="nav-links">
-                <a href="#features">Características</a>
-                <a href="#process">Proceso</a>
-                <a href="#contact">Contacto</a>
-            </div>
-            <div class="nav-logos">
-                <img src="Asistencial-Medica-logotipo-Photoroom.png" alt="Asistencial Médica" class="nav-partner-logo">
-                <img src="holberton logo.png" alt="Holberton School" class="nav-partner-logo">
-            </div>
-        </div>
-    </nav>
+  <nav>
+    <div class="nav-inner">
+      <a class="brand" href="#">
+        <img src="Public/Elio-image-Photoroom.jpeg" alt="ELIO logo">
+        <div class="title">ELIO</div>
+      </a>
 
-    <section class="hero">
-        <img src="Elio image-Photoroom.png" alt="Elio" style="max-width: 300px; height: auto; margin: 0 auto 20px;">
-        <p class="subtitle">Notas médicas inteligentes.</p>
-        <p class="description">
-            La herramienta que transforma tu práctica médica. Documentación completa y precisa en segundos.
-        </p>
-        <div class="cta-buttons">
-            <a href="#contact" class="cta-primary">Solicitar demo</a>
-            <a href="#features" class="cta-secondary">Más información</a>
-        </div>
-        <a href="https://asistencial.com.uy" target="_blank" rel="noopener noreferrer" class="partner-badge" style="text-decoration: none;">
-            <img src="Asistencial-Medica-logotipo-Photoroom.png" alt="Asistencial Médica">
-            <span>En colaboración con <strong>Asistencial Médica</strong></span>
-        </a>
-        <a href="https://holbertonschool.uy" target="_blank" rel="noopener noreferrer" class="partner-badge" style="margin-top: 15px; text-decoration: none;">
-            <img src="holberton logo.png" alt="Holberton School">
-            <span>Desarrollado en <strong>Holberton School</strong></span>
-        </a>
-    </section>
+      <div class="nav-links" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <a href="#demo">Demo</a>
+        <a href="#contact">Contact</a>
+      </div>
 
-    <section class="feature-section" id="features">
-        <h2>Diseñado para médicos.</h2>
-        <p class="feature-subtitle">Potenciado por inteligencia artificial.</p>
-        <p>
-            Elio utiliza Gemini 2.0 Flash para generar notas médicas completas que cumplen con los más altos estándares clínicos. Desarrollado en colaboración con Asistencial Medica de Maldonado.
-        </p>
-        <div class="feature-grid">
-            <div class="feature-item">
-                <h3>Velocidad</h3>
-                <p>Genera documentación completa en segundos. Más tiempo para tus pacientes.</p>
-            </div>
-            <div class="feature-item">
-                <h3>Precisión</h3>
-                <p>Notas detalladas que incluyen antecedentes, alergias y evolución del paciente.</p>
-            </div>
-            <div class="feature-item">
-                <h3>Simplicidad</h3>
-                <p>Interfaz intuitiva diseñada para integrarse naturalmente en tu flujo de trabajo.</p>
-            </div>
-        </div>
-    </section>
+      <div class="nav-logos" aria-hidden="true">
+        <img src="Public/Asistencial-Medica-logotipo-Photoroom.jpeg" alt="Asistencial Médica">
+        <img src="Public/holberton-logo.jpeg" alt="Holberton School">
+      </div>
+    </div>
+  </nav>
 
-    <section class="stats-section">
-        <h2>Resultados que hablan por sí mismos.</h2>
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-number">1</div>
-                <div class="stat-label">Mes de desarrollo</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Profesional</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">∞</div>
-                <div class="stat-label">Tiempo ahorrado</div>
-            </div>
-        </div>
-    </section>
+  <!-- HERO / INTRO -->
+  <header class="hero" role="banner">
+    <img class="cover" src="Public/Elio-image-Photoroom.jpeg" alt="ELIO cover image">
+    <h1>ELIO</h1>
+    <p class="lead">Intelligent medical notes in seconds</p>
+    <p class="desc">ELIO helps clinicians create complete, accurate clinical documentation in seconds using modern AI — built as a Holberton School portfolio project in collaboration with Asistencial Médica.</p>
+    <div class="cta">
+      <!-- Deployed app -->
+      <a class="btn primary" href="https://www.asistencial-elio.tech/" target="_blank" rel="noopener">Open the App</a>
+      <a class="btn secondary" href="#features">Learn more</a>
+    </div>
+  </header>
 
-    <section class="process-section" id="process">
-        <h2>Así de simple.</h2>
-        <div class="process-steps">
-            <div class="process-step">
-                <div class="step-number">1</div>
-                <h3>Ingresar datos</h3>
-                <p>Edad, sexo y motivo de consulta</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">2</div>
-                <h3>Completar historial</h3>
-                <p>Antecedentes y alergias relevantes</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">3</div>
-                <h3>Evaluar síntomas</h3>
-                <p>Características y evolución clínica</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">4</div>
-                <h3>Obtener nota</h3>
-                <p>Documentación completa generada</p>
-            </div>
-        </div>
-    </section>
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="wrap">
+      <h2>Main features</h2>
+      <div class="subtitle">Designed for clinicians — fast, accurate, simple</div>
+      <p class="lead-muted">Below are three of ELIO's core capabilities. Replace the placeholder images in Public/ with dedicated screenshots or gifs for each feature.</p>
 
-    <section class="feature-section">
-        <div class="feature-content">
-            <h2>Desarrollado en Uruguay.</h2>
-            <p class="feature-subtitle">Para profesionales de la salud.</p>
-            <p>
-                Creado en colaboración con la Asistencial Médica de Maldonado, Elio entiende las necesidades reales de los profesionales de la salud y las resuelve con tecnología de vanguardia.
-            </p>
+      <div class="feature-grid" aria-hidden="false">
+        <div class="feature">
+          <img src="Public/Elio-image-Photoroom.jpeg" alt="Speed illustration">
+          <div>
+            <h3>Speed</h3>
+            <p>Generate a full clinical note in seconds so clinicians can focus on patients.</p>
+          </div>
         </div>
-    </section>
 
-    <section class="final-cta" id="contact">
-        <h2>El futuro de la documentación médica.</h2>
-        <p>Comienza a optimizar tu práctica hoy.</p>
-        <a href="#" class="cta-primary">Solicitar demo</a>
-    </section>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="Asistencial-Medica-logotipo-Photoroom.png" alt="Asistencial Médica">
-            </div>
-            <p>Desarrollado para Asistencial Médica de Maldonado</p>
-            <p>© 2024 Elio. Todos los derechos reservados.</p>
+        <div class="feature">
+          <img src="Public/Elio-image-Photoroom.jpeg" alt="Accuracy illustration">
+          <div>
+            <h3>Accuracy</h3>
+            <p>Structured notes include history, allergies, meds and follow-up recommendations.</p>
+          </div>
         </div>
-    </footer>
+
+        <div class="feature">
+          <img src="Public/Elio-image-Photoroom.jpeg" alt="Simplicity illustration">
+          <div>
+            <h3>Simplicity</h3>
+            <p>Clean UI and seamless workflow integration — minimal clicks, maximum clarity.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <h2 id="about-title">About ELIO</h2>
+      <div class="subtitle">Project inspiration & team</div>
+
+      <p class="lead-muted">
+        Inspiration: As clinicians and developers, we saw how much time is spent on documentation and how that reduces patient interaction. ELIO was born from that real need — to reduce administrative burden and improve clinical record quality. This is a portfolio project developed at <a href="https://www.holbertonschool.uy" target="_blank" rel="noopener">Holberton School</a> in collaboration with Asistencial Médica. (Edit this paragraph to add a short personal story: why you built it, the timeline, and key lessons learned.)
+      </p>
+
+      <div class="team-grid" role="list">
+        <!-- Alejandro -->
+        <div class="card" role="listitem">
+          <img class="avatar" src="Public/Alejandro_Arevalo.png" alt="Alejandro Arévalo">
+          <h3>Alejandro Arévalo</h3>
+          <p class="lead-muted">Project lead • Backend</p>
+          <div class="socials">
+            <a href="https://www.linkedin.com/in/a-arevalo" target="_blank" rel="noopener">LinkedIn</a> |
+            <a href="https://github.com/alearecuest" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <img src="Public/AlejandroArevaloQR.png" alt="QR Alejandro (LinkedIn)" style="margin-top:10px;height:80px">
+        </div>
+
+        <!-- Bruno -->
+        <div class="card" role="listitem">
+          <img class="avatar" src="Public/Bruno_Barrera.png" alt="Bruno Barrera">
+          <h3>Bruno Barrera</h3>
+          <p class="lead-muted">Backend • Integrations</p>
+          <div class="socials">
+            <a href="https://www.linkedin.com/in/bruno-barrera-27a7ba389/" target="_blank" rel="noopener">LinkedIn</a> |
+            <a href="https://github.com/BrunoBarrera1" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <img src="Public/BrunoBarreraQR.png" alt="QR Bruno (LinkedIn)" style="margin-top:10px;height:80px">
+        </div>
+
+        <!-- Fernando (placeholder avatar) -->
+        <div class="card" role="listitem">
+          <!-- Reemplaza por Public/Fernando_Falcon.png si la subís -->
+          <img class="avatar" src="Public/Elio-image-Photoroom.jpeg" alt="Fernando (placeholder)">
+          <h3>Fernando Falcon</h3>
+          <p class="lead-muted">Design • Frontend</p>
+          <div class="socials">
+            <a href="https://www.linkedin.com/in/fernandofalcon/" target="_blank" rel="noopener">LinkedIn</a> |
+            <a href="https://github.com/feratholberton" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <img src="Public/FernandoFalconQR.png" alt="QR Fernando (LinkedIn)" style="margin-top:10px;height:80px">
+        </div>
+      </div>
+
+      <p style="margin-top:20px">
+        Repository: <a href="https://github.com/feratholberton/ProyectoFinal" target="_blank" rel="noopener">https://github.com/feratholberton/ProyectoFinal</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- DEMO -->
+  <section id="demo">
+    <div class="wrap">
+      <h2>Demo</h2>
+      <div class="subtitle">Watch ELIO in action</div>
+      <p class="lead-muted">Short demo showing how ELIO generates a clinical note from patient data.</p>
+
+      <div class="video-wrap" aria-hidden="false">
+        <!-- Demo video proporcionado -->
+        <iframe src="https://www.youtube.com/embed/WSlAbLz1NIo" title="ELIO demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section id="contact">
+    <div class="wrap final-cta" role="region" aria-label="Call to action">
+      <h2>The future of medical documentation</h2>
+      <p>Ready to try ELIO? Request a demo or open the app to get started.</p>
+      <div style="margin-top:16px">
+        <a class="btn primary" href="https://www.asistencial-elio.tech/" target="_blank" rel="noopener">Open the App</a>
+        <!-- FALTANTE: reemplaza con tu email real -->
+        <a class="btn secondary" href="mailto:REPLACE_CONTACT_EMAIL">Request a demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="fwrap">
+      <img src="Public/Asistencial-Medica-logotipo-Photoroom.jpeg" alt="Asistencial Médica">
+      <p style="margin:10px 0 0;color:#8a8a90">Developed for Asistencial Médica de Maldonado • Portfolio Project at Holberton School</p>
+      <p style="margin:6px 0 0;color:#8a8a90">© 2025 ELIO. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
