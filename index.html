@@ -11,40 +11,40 @@
 <body>
   <nav>
     <div class="nav-inner">
-      <a class="brand" href="#">
-        <img src="Public/elio-logo.svg" alt="ELIO logo" class="nav-logo">
-      </a>
-
       <div class="nav-links" aria-label="Primary">
         <a href="#features">Features</a>
         <a href="#about">About</a>
         <a href="#demo">Demo</a>
-        <a href="#contact">Get the App</a>
-      </div>
-
-      <div class="nav-logos" aria-hidden="true">
-        <img src="Public/Asistencial-Medica-logotipo-Photoroom.png" alt="Asistencial Médica">
-        <img src="Public/holberton-logo.png" alt="Holberton School">
       </div>
     </div>
   </nav>
 
-  <header class="hero" role="banner">
-    <img class="cover" src="Public/Elio-image-Photoroom.png" alt="ELIO cover image">
-    <p class="lead">Intelligent medical notes in seconds</p>
-    <p class="desc">ELIO helps clinicians create complete, accurate clinical documentation in seconds using modern AI built as a Holberton School portfolio project in collaboration with Asistencial Médica.</p>
-    <div class="cta">
-      <a class="btn primary" href="https://www.asistencial-elio.tech/" target="_blank" rel="noopener">Open the App</a>
-      <a class="btn secondary" href="https://github.com/feratholberton/ProyectoFinal" target="_blank" rel="noopener">View on GitHub</a>
+  <section class="hero">
+    <img src="Public/Elio-image-Photoroom.png" alt="Elio" style="max-width: 300px; height: auto; margin: 0 auto 20px;">
+    <p class="subtitle">Intelligent medical notes.</p>
+    <p class="description">
+      The tool that transforms your medical practice. Complete, accurate documentation in seconds.
+    </p>
+    <div class="cta-buttons">
+      <a href="https://github.com/feratholberton/ProyectoFinal" target="_blank" rel="noopener" class="cta-primary">
+        Clone repository
+      </a>
+      <a href="https://www.asistencial-elio.tech/" target="_blank" rel="noopener" class="cta-secondary">Try Elio</a>
     </div>
-  </header>
+    <a href="https://asistencial.com.uy" target="_blank" rel="noopener noreferrer" class="partner-badge" style="text-decoration: none;">
+      <img src="Public/Asistencial-Medica-logotipo-Photoroom.png" alt="Asistencial Médica">
+      <span>In collaboration with <strong>Asistencial Médica</strong></span>
+    </a>
+    <a href="https://holbertonschool.uy" target="_blank" rel="noopener noreferrer" class="partner-badge" style="margin-top: 15px; text-decoration: none;">
+      <img src="Public/holberton logo.png" alt="Holberton School">
+      <span>Built at <strong>Holberton School</strong></span>
+    </a>
+  </section>
 
   <section id="features">
     <div class="wrap">
       <h2>Main features</h2>
       <div class="subtitle">Designed for clinicians — fast, accurate, simple</div>
-      <p class="lead-muted">Below are three of ELIO's core capabilities. Replace the placeholder examples with dedicated screenshots or gifs for each feature when ready.</p>
-
       <div class="feature-grid" aria-hidden="false">
         <div class="feature">
           <div>
@@ -70,6 +70,51 @@
     </div>
   </section>
 
+  <section id="tech-stack">
+    <div class="wrap">
+      <h2>Technology Stack</h2>
+      <div class="subtitle">Powered by modern frontend-backend technologies</div>
+      
+      <p class="lead-muted">
+        Elio runs on a clean, modular stack with Fastify, TypeScript, Gemini, and Angular. It follows a domain-driven architecture focused on maintainability, scalability, and clear separation of concerns. The backend is built to evolve fast without breaking core logic.
+      </p>
+
+      <div class="tech-grid">
+        <div class="tech-item">
+          <a href="https://angular.dev/press-kit" target="_blank" rel="noopener noreferrer">
+            <img src="Public/angular.png" alt="Angular" class="tech-logo">
+          </a>
+          <h3>Angular</h3>
+          <p>Robust frontend framework providing a seamless, responsive user experience for healthcare professionals.</p>
+        </div>
+
+        <div class="tech-item">
+          <a href="https://gemini.google.com/app?hl=es" target="_blank" rel="noopener noreferrer">
+            <img src="Public/1728457808_Google_Gemini_logo_PNG.png" alt="Google Gemini" class="tech-logo">
+          </a>
+          <h3>Google Gemini</h3>
+          <p>Advanced AI model providing intelligent natural language processing for accurate clinical note generation.</p>
+        </div>
+
+        <div class="tech-item">
+          <a href="https://fastify.dev/" target="_blank" rel="noopener noreferrer">
+            <img src="Public/fastify-logo-png_seeklogo-399412.png" alt="Fastify" class="tech-logo">
+          </a>
+          <h3>Fastify</h3>
+          <p>High-performance web framework ensuring rapid response times and efficient request handling.</p>
+        </div>
+
+        <div class="tech-item">
+          <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer">
+            <img src="Public/png-transparent-typescript-hd-logo.png" alt="TypeScript" class="tech-logo">
+          </a>
+          <h3>TypeScript</h3>
+          <p>Type-safe development environment ensuring code reliability and maintainability at scale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="about" aria-labelledby="about-title">
     <div class="wrap">
       <h2 id="about-title">About ELIO</h2>
@@ -85,30 +130,42 @@
           <h3>Alejandro Arévalo</h3>
           <p class="lead-muted">Project lead • Backend</p>
           <div class="socials">
-            <a href="https://www.linkedin.com/in/a-arevalo" target="_blank" rel="noopener">LinkedIn</a> |
-            <a href="https://github.com/alearecuest" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/a-arevalo" target="_blank" rel="noopener" class="social-link" aria-label="Alejandro Arévalo on LinkedIn">
+              <img src="Public/Linkedin-PNG.png" alt="LinkedIn">
+            </a>
+            <a href="https://github.com/alearecuest" target="_blank" rel="noopener" class="social-link" aria-label="Alejandro Arévalo on GitHub">
+              <img src="Public/github_PNG80.png" alt="GitHub">
+            </a>
           </div>
           <img src="Public/AlejandroArevaloQR.png" alt="QR Alejandro (LinkedIn)" style="margin-top:10px;height:80px">
         </div>
 
         <div class="card" role="listitem">
-          <img class="avatar" src="Public/Bruno_Barrera.png" alt="Bruno Barrera">
+          <img class="avatar" src="Public/Bruno_Barrera_new.png" alt="Bruno Barrera">
           <h3>Bruno Barrera</h3>
           <p class="lead-muted">Backend • Integrations</p>
           <div class="socials">
-            <a href="https://www.linkedin.com/in/bruno-barrera-27a7ba389/" target="_blank" rel="noopener">LinkedIn</a> |
-            <a href="https://github.com/BrunoBarrera1" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/bruno-barrera-27a7ba389/" target="_blank" rel="noopener" class="social-link" aria-label="Bruno Barrera on LinkedIn">
+              <img src="Public/Linkedin-PNG.png" alt="LinkedIn">
+            </a>
+            <a href="https://github.com/BrunoBarrera1" target="_blank" rel="noopener" class="social-link" aria-label="Bruno Barrera on GitHub">
+              <img src="Public/github_PNG80.png" alt="GitHub">
+            </a>
           </div>
           <img src="Public/BrunoBarreraQR.png" alt="QR Bruno (LinkedIn)" style="margin-top:10px;height:80px">
         </div>
 
         <div class="card" role="listitem">
-          <img class="avatar" src="Public/Elio-image-Photoroom.png" alt="Fernando (placeholder)">
+          <img class="avatar" src="Public/Fernando_Falcon_new.png" alt="Fernando (placeholder)">
           <h3>Fernando Falcon</h3>
           <p class="lead-muted">Design • Frontend</p>
           <div class="socials">
-            <a href="https://www.linkedin.com/in/fernandofalcon/" target="_blank" rel="noopener">LinkedIn</a> |
-            <a href="https://github.com/feratholberton" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/fernandofalcon/" target="_blank" rel="noopener" class="social-link" aria-label="Fernando Falcon on LinkedIn">
+              <img src="Public/Linkedin-PNG.png" alt="LinkedIn">
+            </a>
+            <a href="https://github.com/feratholberton" target="_blank" rel="noopener" class="social-link" aria-label="Fernando Falcon on GitHub">
+              <img src="Public/github_PNG80.png" alt="GitHub">
+            </a>
           </div>
           <img src="Public/FernandoFalconQR.png" alt="QR Fernando (LinkedIn)" style="margin-top:10px;height:80px">
         </div>
@@ -129,28 +186,13 @@
     </div>
   </section>
 
-  <section id="contact">
-    <div class="final-cta">
-      <div class="wrap">
-        <h2>The future of medical documentation</h2>
-        <p>Open the app directly or browse the source on GitHub.</p>
-        <div style="margin-top:16px">
-          <a class="btn primary" href="https://www.asistencial-elio.tech/" target="_blank" rel="noopener">Open the App</a>
-          <a class="btn secondary" href="https://github.com/feratholberton/ProyectoFinal" target="_blank" rel="noopener">View on GitHub</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <footer>
-    <div class="fwrap">
-      <div class="footer-logos">
+    <div class="footer-content">
+      <div class="footer-logo">
         <img src="Public/Asistencial-Medica-logotipo-Photoroom.png" alt="Asistencial Médica">
-        <img src="Public/elio-logo.svg" alt="ELIO logo" class="footer-elio">
-        <img src="Public/holberton-logo.png" alt="Holberton School" class="footer-holberton">
       </div>
-      <p style="margin:10px 0 0;color:#8a8a90">Developed for Asistencial Médica de Maldonado • Portfolio Project at Holberton School</p>
-      <p style="margin:6px 0 0;color:#8a8a90">© 2025 ELIO. All rights reserved.</p>
+      <p>Developed for Asistencial Médica de Maldonado</p>
+      <p>© 2025 Elio. All rights reserved.</p>
     </div>
   </footer>
 </body>
