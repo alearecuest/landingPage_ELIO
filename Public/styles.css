@@ -15,6 +15,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
+/* NAV */
 nav{
   position:sticky;
   top:0;
@@ -26,7 +27,7 @@ nav{
 .nav-inner{
   max-width:var(--container);
   margin:0 auto;
-  padding:10px 16px;
+  padding:14px 20px;
   display:flex;
   gap:12px;
   align-items:center;
@@ -34,8 +35,9 @@ nav{
 }
 .brand{ display:flex; align-items:center; }
 
+/* NAV LOGO - reduced by ~20% to avoid cropping */
 .nav-logo{
-  height:40px;
+  height:42px;        /* 52px * 0.8 ≈ 42px */
   width:auto;
   display:block;
   object-fit:contain;
@@ -43,13 +45,20 @@ nav{
   border-radius: 0;
 }
 
-.nav-links{display:flex;gap:18px;align-items:center}
-.nav-links a{color:var(--text);text-decoration:none;font-size:14px;opacity:0.9}
-.nav-logos img{height:28px;width:auto;display:inline-block;opacity:0.9}
+/* center nav links */
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{color:var(--text);text-decoration:none;font-size:15px;opacity:0.95;padding:6px 4px}
+.nav-logos img{
+  height:34px;
+  width:auto;
+  display:inline-block;
+  opacity:0.95;
+}
 
+/* HERO */
 .hero{
   max-width:var(--container);
-  margin:30px auto;
+  margin:40px auto;
   padding:36px 16px;
   text-align:center;
 }
@@ -67,12 +76,14 @@ nav{
 .btn.primary{background:var(--accent);color:#fff}
 .btn.secondary{background:#fff;color:var(--accent);border:2px solid var(--accent)}
 
+/* SECTIONS */
 section{padding:56px 16px}
 .wrap{max-width:var(--container);margin:0 auto}
 h2{font-size:28px;margin:0 0 8px;font-weight:700}
 .subtitle{color:var(--accent);margin-bottom:14px;font-weight:600}
 p.lead-muted{color:var(--muted);font-size:16px;line-height:1.5}
 
+/* FEATURES grid without images */
 .feature-grid{
   margin-top:28px;
   display:grid;
@@ -87,14 +98,17 @@ p.lead-muted{color:var(--muted);font-size:16px;line-height:1.5}
 .feature h3{margin:0 0 6px 0;font-size:18px}
 .feature p{margin:0;color:var(--muted);font-size:14px}
 
+/* ABOUT team */
 .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
 .card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 6px 20px rgba(0,0,0,0.04);text-align:center}
 .avatar{width:120px;height:120px;border-radius:12px;object-fit:cover;margin:0 auto 10px}
 .socials a{margin:0 6px;text-decoration:none;color:var(--accent);font-weight:600;font-size:13px}
 
+/* DEMO video */
 .video-wrap{max-width:900px;margin:14px auto 0}
 iframe{width:100%;height:480px;border:0;border-radius:8px;box-shadow:0 6px 30px rgba(0,0,0,0.06)}
 
+/* FINAL CTA - full width band with centered content */
 .final-cta{
   width:100%;
   background:#0e0e0f;
@@ -112,20 +126,38 @@ iframe{width:100%;height:480px;border:0;border-radius:8px;box-shadow:0 6px 30px 
 .final-cta .btn.primary{background:#17a2b8;border-color:transparent}
 .final-cta .btn.secondary{background:transparent;color:#17a2b8;border:2px solid #17a2b8}
 
+/* FOOTER - logos centered and ELIO reduced by ~20% */
 footer{padding:30px 16px;background:#f5f5f7;color:var(--muted)}
 footer .fwrap{max-width:var(--container);margin:0 auto;text-align:center}
 .footer-logos{
   display:flex;
   align-items:center;
-  justify-content:center;
+  justify-content:center;  /* ensures logos are horizontally centered */
   gap:24px;
-  margin-bottom:10px;
+  margin:0 auto 10px;      /* center block and small bottom gap */
+  width:100%;
+  max-width:360px;         /* keep logos grouped and centered */
 }
-.footer-logos img{height:48px; width:auto; display:inline-block; opacity:0.95}
-.footer-elio{height:36px; object-fit:contain;}
+.footer-logos img{
+  height:48px;
+  width:auto;
+  display:inline-block;
+  opacity:0.95;
+}
+.footer-elio{
+  height:29px;             /* 36px * 0.8 ≈ 29px (20% smaller) */
+  object-fit:contain;
+}
 
+/* responsive tweaks */
 @media (max-width:520px){
   .hero p.lead{font-size:18px}
   iframe{height:260px}
-  .footer-logos{gap:12px}
+
+  /* responsive nav/footer sizes */
+  .nav-inner{padding:10px 14px}
+  .nav-logo{height:34px}         /* ensure header logo scales down on small screens */
+  .nav-logos img{height:26px}
+  .footer-logos{gap:12px; max-width:260px}
+  .footer-elio{height:24px}
 }
