@@ -4,66 +4,761 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ELIO — Intelligent Medical Notes</title>
-  <link rel="icon" type="image/x-icon" href="Public/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="Public/Elio%20image-Photoroom.png">
+  <link rel="apple-touch-icon" href="Public/Elio%20image-Photoroom.png">
   <meta name="description" content="ELIO generates accurate medical notes in seconds - portfolio project developed at Holberton School.">
-  <link rel="stylesheet" href="Public/styles.css">
+  <style>
+    /* CSS Variables */
+    :root {
+      --accent: #17a2b8;
+      --accent-dark: #138496;
+      --bg: #fbfbfd;
+      --bg-alt: #f5f5f7;
+      --text: #1d1d1f;
+      --text-muted: #6e6e73;
+      --container: 1068px;
+      --radius: 18px;
+      --radius-sm: 12px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
+      --transition: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Smooth Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(23, 162, 184, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 40px rgba(23, 162, 184, 0.5);
+      }
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 44px;
+      background: rgba(251, 251, 253, 0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      z-index: 1000;
+      transition: all 0.3s var(--transition);
+    }
+
+    nav.scrolled {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      background: rgba(251, 251, 253, 0.85);
+    }
+
+    .nav-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.3s var(--transition);
+      letter-spacing: -0.005em;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
+    /* Hero Section */
+    .hero {
+      margin-top: 44px;
+      padding: 100px 24px 120px;
+      background: linear-gradient(180deg, #e8f8fa 0%, var(--bg) 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(23, 162, 184, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-logo {
+      width: 220px;
+      margin: 0 auto 36px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-logo img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 8px 24px rgba(23, 162, 184, 0.15));
+      background: transparent;
+    }
+
+    .hero .subtitle {
+      font-size: 56px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.12;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    .hero .description {
+      font-size: 21px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.4;
+      font-weight: 400;
+    }
+
+    /* CTA Buttons */
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .cta-primary, .cta-secondary {
+      padding: 14px 32px;
+      border-radius: 980px;
+      font-size: 17px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s var(--transition);
+      display: inline-block;
+      letter-spacing: -0.01em;
+    }
+
+    .cta-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 16px rgba(23, 162, 184, 0.3);
+    }
+
+    .cta-primary:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 24px rgba(23, 162, 184, 0.4);
+      background: var(--accent-dark);
+    }
+
+    .cta-secondary {
+      background: white;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+    }
+
+    .cta-secondary:hover {
+      transform: scale(1.03);
+      background: rgba(23, 162, 184, 0.05);
+    }
+
+    .partner-badges {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .partner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 28px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(23, 162, 184, 0.15);
+      border-radius: 46px;
+      transition: all 0.3s var(--transition);
+      color: var(--text);
+      font-size: 15px;
+      text-decoration: none;
+      min-width: 260px;
+      justify-content: center;
+    }
+
+    .partner-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .partner-badge img {
+      height: 32px;
+      width: 32px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .partner-badge span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      line-height: 1.3;
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 24px;
+    }
+
+    .wrap {
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: 48px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      text-align: center;
+      line-height: 1.08;
+    }
+
+    .subtitle {
+      font-size: 21px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 48px;
+      font-weight: 400;
+    }
+
+    .lead-muted {
+      font-size: 19px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 800px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    /* Features Section */
+    #features {
+      background: white;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .feature {
+      background: white;
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      transition: all 0.4s var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent);
+      transform: scaleY(0);
+      transition: transform 0.4s var(--transition);
+    }
+
+    .feature:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .feature:hover::before {
+      transform: scaleY(1);
+    }
+
+    .feature h3 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .feature p {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Tech Stack Section */
+    #tech-stack {
+      background: linear-gradient(180deg, white 0%, var(--bg-alt) 100%);
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .tech-item {
+      background: white;
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      transition: all 0.4s var(--transition);
+    }
+
+    .tech-item:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent);
+    }
+
+    .tech-item a {
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .tech-logo {
+      height: 64px;
+      width: auto;
+      margin: 0 auto;
+      display: block;
+      transition: all 0.3s var(--transition);
+      filter: grayscale(0.2);
+    }
+
+    .tech-item:hover .tech-logo {
+      transform: scale(1.1);
+      filter: grayscale(0);
+    }
+
+    .tech-item h3 {
+      font-size: 21px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .tech-item p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* About/Team Section */
+    #about {
+      background: linear-gradient(180deg, var(--bg-alt) 0%, white 100%);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      transition: all 0.4s var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 18px;
+      margin: 0 auto 24px;
+      display: block;
+      border: 3px solid var(--accent);
+      box-shadow: 0 8px 24px rgba(23, 162, 184, 0.2);
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .card h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      border-radius: 50%;
+      transition: all 0.3s var(--transition);
+    }
+
+    .social-link:hover {
+      transform: scale(1.15);
+      background: var(--accent-dark);
+      box-shadow: 0 4px 12px rgba(23, 162, 184, 0.4);
+    }
+
+    .social-link img {
+      width: 20px !important;
+      height: 20px !important;
+      filter: brightness(0) invert(1);
+    }
+
+    /* Demo Section */
+    #demo {
+      background: white;
+      padding: 100px 24px;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #e8f8fa, #d4f1f4);
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-alt);
+      padding: 60px 24px 40px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .footer-logo img {
+      height: 48px;
+      width: auto;
+      margin: 0 auto 24px;
+      display: block;
+      opacity: 0.7;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1068px) {
+      h2 {
+        font-size: 40px;
+      }
+
+      .hero-logo {
+        width: 200px;
+        margin-bottom: 32px;
+      }
+
+      .hero .subtitle {
+        font-size: 44px;
+      }
+
+      .tech-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 734px) {
+      .hero {
+        padding: 60px 20px 80px;
+      }
+
+      .hero-logo {
+        width: 170px;
+        margin-bottom: 28px;
+      }
+
+      .hero .subtitle {
+        font-size: 36px;
+      }
+
+      .hero .description {
+        font-size: 19px;
+      }
+
+      h2 {
+        font-size: 32px;
+      }
+
+      .subtitle {
+        font-size: 17px;
+      }
+
+      .lead-muted {
+        font-size: 17px;
+      }
+
+      .feature-grid,
+      .tech-grid,
+      .team-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cta-primary,
+      .cta-secondary {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .partner-badges {
+        gap: 16px;
+      }
+
+      .partner-badge {
+        min-width: 0;
+        width: 100%;
+      }
+
+      .nav-links {
+        gap: 24px;
+      }
+
+      .partner-badge {
+        font-size: 13px;
+        padding: 10px 20px;
+      }
+
+      section {
+        padding: 60px 20px;
+      }
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Focus States for Accessibility */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+  </style>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 10) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Intersection Observer for fade-in animations
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = 'fadeInUp 0.8s var(--transition) forwards';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Observe all major sections
+      document.querySelectorAll('.feature, .tech-item, .card').forEach(el => {
+        el.style.opacity = '0';
+        observer.observe(el);
+      });
+    });
+  </script>
 </head>
 <body>
   <nav>
     <div class="nav-inner">
       <div class="nav-links" aria-label="Primary">
-        <a href="#features">Features</a>
-        <a href="#about">About</a>
-        <a href="#demo">Demo</a>
+        <a href="#features">Características</a>
+        <a href="#about">Acerca de</a>
+        <a href="#demo">Demostración</a>
       </div>
     </div>
   </nav>
 
   <section class="hero">
-    <img src="Public/Elio-image-Photoroom.png" alt="Elio" style="max-width: 300px; height: auto; margin: 0 auto 20px;">
+    <div class="hero-logo">
+      <img src="Public/Elio image-Photoroom.png" alt="Elio logo">
+    </div>
     <p class="subtitle">Intelligent medical notes.</p>
     <p class="description">
-      The tool that transforms your medical practice. Complete, accurate documentation in seconds.
+      La herramienta que transforma tu práctica médica. Documentación completa y precisa en segundos.<br>
     </p>
     <div class="cta-buttons">
       <a href="https://github.com/feratholberton/ProyectoFinal" target="_blank" rel="noopener" class="cta-primary">
-        Clone repository
+        Clonar repositorio
       </a>
-      <a href="https://www.asistencial-elio.tech/" target="_blank" rel="noopener" class="cta-secondary">Try Elio</a>
+      <a href="https://www.asistencial-elio.tech/" target="_blank" rel="noopener" class="cta-secondary">Probar Elio</a>
     </div>
-    <a href="https://asistencial.com.uy" target="_blank" rel="noopener noreferrer" class="partner-badge" style="text-decoration: none;">
-      <img src="Public/Asistencial-Medica-logotipo-Photoroom.png" alt="Asistencial Médica">
-      <span>In collaboration with <strong>Asistencial Médica</strong></span>
-    </a>
-    <a href="https://holbertonschool.uy" target="_blank" rel="noopener noreferrer" class="partner-badge" style="margin-top: 15px; text-decoration: none;">
-      <img src="Public/holberton logo.png" alt="Holberton School">
-      <span>Built at <strong>Holberton School</strong></span>
-    </a>
+    <div class="partner-badges" aria-label="Program partners">
+      <a href="https://asistencial.com.uy" target="_blank" rel="noopener noreferrer" class="partner-badge">
+        <img src="Public/Asistencial-Medica-logotipo-Photoroom.png" alt="Asistencial Médica">
+        <span>En colaboración con <strong>Asistencial Médica</strong></span>
+      </a>
+      <a href="https://holbertonschool.uy" target="_blank" rel="noopener noreferrer" class="partner-badge">
+        <img src="Public/holberton logo.png" alt="Holberton School">
+        <span>Hecho en <strong>Holberton School</strong></span>
+      </a>
+    </div>
   </section>
 
   <section id="features">
     <div class="wrap">
-      <h2>Main features</h2>
-      <div class="subtitle">Designed for clinicians — fast, accurate, simple</div>
+      <h2>Características principales</h2>
+      <div class="subtitle">Diseñado para médicos — rápido, preciso, simple</div>
       <div class="feature-grid" aria-hidden="false">
         <div class="feature">
           <div>
-            <h3>Speed</h3>
-            <p>Generate a full clinical note in seconds so clinicians can focus on patients.</p>
+            <h3>Velocidad</h3>
+            <p>Genera una nota clínica completa en segundos para que los medicos puedan centrarse en los pacientes.</p>
           </div>
         </div>
 
         <div class="feature">
           <div>
-            <h3>Accuracy</h3>
-            <p>Structured notes include history, allergies, meds and follow-up recommendations.</p>
+            <h3>Precisión</h3>
+            <p>Las notas estructuradas incluyen historial, alergias, medicamentos y recomendaciones de seguimiento.</p>
           </div>
         </div>
 
         <div class="feature">
           <div>
-            <h3>Simplicity</h3>
-            <p>Clean UI and seamless workflow integration — minimal clicks, maximum clarity.</p>
+            <h3>Simplicidad</h3>
+            <p>Interfaz limpia e integración fluida del flujo de trabajo: clics mínimos, máxima claridad.</p>
           </div>
         </div>
       </div>
@@ -72,12 +767,14 @@
 
   <section id="tech-stack">
     <div class="wrap">
-      <h2>Technology Stack</h2>
-      <div class="subtitle">Powered by modern frontend-backend technologies</div>
+      <h2>Stack de tecnologias</h2>
+      <div class="subtitle">Impulsado por tecnologías modernas de frontend y backend</div>
       
       <p class="lead-muted">
-        Elio runs on a clean, modular stack with Fastify, TypeScript, Gemini, and Angular. It follows a domain-driven architecture focused on maintainability, scalability, and clear separation of concerns. The backend is built to evolve fast without breaking core logic.
-      </p>
+       Elio corre sobre un stack tecnológico limpio y modular, compuesto por Fastify, TypeScript, Gemini y Angular.
+Sigue una arquitectura orientada al dominio, enfocada en la mantenibilidad, escalabilidad y una clara separación de responsabilidades.
+El backend está diseñado para evolucionar rápidamente sin romper la lógica central.
+
 
       <div class="tech-grid">
         <div class="tech-item">
@@ -85,7 +782,7 @@
             <img src="Public/angular.png" alt="Angular" class="tech-logo">
           </a>
           <h3>Angular</h3>
-          <p>Robust frontend framework providing a seamless, responsive user experience for healthcare professionals.</p>
+          <p>Framework frontend robusto que proporciona una experiencia de usuario fluida y receptiva para profesionales de la salud.</p>
         </div>
 
         <div class="tech-item">
@@ -93,7 +790,7 @@
             <img src="Public/1728457808_Google_Gemini_logo_PNG.png" alt="Google Gemini" class="tech-logo">
           </a>
           <h3>Google Gemini</h3>
-          <p>Advanced AI model providing intelligent natural language processing for accurate clinical note generation.</p>
+          <p>Modelo avanzado de IA que proporciona procesamiento inteligente del lenguaje natural para la generación precisa de notas clínicas.</p>
         </div>
 
         <div class="tech-item">
@@ -101,7 +798,7 @@
             <img src="Public/fastify-logo-png_seeklogo-399412.png" alt="Fastify" class="tech-logo">
           </a>
           <h3>Fastify</h3>
-          <p>High-performance web framework ensuring rapid response times and efficient request handling.</p>
+          <p>Framework web de alto rendimiento que garantiza tiempos de respuesta rápidos y manejo eficiente de solicitudes.</p>
         </div>
 
         <div class="tech-item">
@@ -109,7 +806,7 @@
             <img src="Public/png-transparent-typescript-hd-logo.png" alt="TypeScript" class="tech-logo">
           </a>
           <h3>TypeScript</h3>
-          <p>Type-safe development environment ensuring code reliability and maintainability at scale.</p>
+          <p>Entorno de desarrollo con tipado seguro que garantiza la fiabilidad y mantenibilidad del código a gran escala.</p>
         </div>
       </div>
     </div>
@@ -117,11 +814,13 @@
 
   <section id="about" aria-labelledby="about-title">
     <div class="wrap">
-      <h2 id="about-title">About ELIO</h2>
-      <div class="subtitle">Project inspiration & team</div>
+      <h2 id="about-title">Sobre Elio</h2>
+      <div class="subtitle">Inspiración del proyecto y equipo</div>
 
       <p class="lead-muted">
-        During our collaboration with Asistencial Médica and guidance from our mentors, we discovered that physicians spend too much time manually writing clinical reports. We built ELIO to guide consultations with a streamlined workflow and AI‑assisted suggestions that generate standardized clinical notes, so clinicians can spend more time with patients. ELIO runs on tablets, phones and desktops and stores structured clinical information for future analysis.
+        Durante nuestra colaboración con Asistencial Médica y bajo la guía de nuestros mentores, descubrimos que los médicos dedican demasiado tiempo a redactar manualmente los informes clínicos.
+Construimos ELIO para guiar las consultas mediante un flujo de trabajo optimizado y sugerencias asistidas por inteligencia artificial que generan notas clínicas estandarizadas, permitiendo que los profesionales dediquen más tiempo a sus pacientes.
+ELIO funciona en tablets, teléfonos y computadoras, y almacena información clínica estructurada para su análisis futuro.
       </p>
 
       <div class="team-grid" role="list">
@@ -177,8 +876,8 @@
   <section id="demo">
     <div class="wrap">
       <h2>Demo</h2>
-      <div class="subtitle">Watch ELIO in action</div>
-      <p class="lead-muted">Short demo showing how ELIO generates a clinical note from patient data.</p>
+      <div class="subtitle">Elio en accion</div>
+      <p class="lead-muted">Demo corta mostrando como Elio genera una nota clinica usando la informacion del paciente</p>
 
       <div class="video-wrap" aria-hidden="false">
         <iframe src="https://www.youtube.com/embed/WSlAbLz1NIo" title="ELIO demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -191,8 +890,8 @@
       <div class="footer-logo">
         <img src="Public/Asistencial-Medica-logotipo-Photoroom.png" alt="Asistencial Médica">
       </div>
-      <p>Developed for Asistencial Médica de Maldonado</p>
-      <p>© 2025 Elio. All rights reserved.</p>
+      <p>Desarrollado para Asistencial Medica de Maldonado</p>
+      <p>© 2025 Elio. Todos los derechos reservados.</p>
     </div>
   </footer>
 </body>
